@@ -1,6 +1,6 @@
 ---
 - name: Web Server Setup
-  hosts: tag_Name_APP_DRL
+  hosts: webserver
   become: true
  
   roles: 

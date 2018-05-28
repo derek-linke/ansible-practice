@@ -1,8 +1,11 @@
 ---
 - name: Database Setup
-  hosts: tag_Name_DB_DRL
+  hosts: database
   become: true
 
   roles:
-    - { role: mysql, db_name: "{{ sdbname }}", db_user_name: demo, db_user_pass: demo, db_user_host: '%' }
+    - role: mysql
+      db_user_name: "{{ db_user }}" 
+      db_user_pass: "{{ db_pass }}"
+      db_user_host: '%' 
 

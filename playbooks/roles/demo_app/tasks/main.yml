@@ -19,6 +19,13 @@
         mode: 0755
       notify: restart apache2
     
+    - name: Copy demo.wsgi
+      template: 
+        src: demo.wsgi.j2
+        dest: /var/www/demo/demo.wsgi
+        mode: 0755
+ 
+
     - name: Copy apache virtual host config
       copy: 
         src: demo/demo.conf
