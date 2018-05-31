@@ -2,8 +2,10 @@
 - name: Web Server Setup
   hosts: webserver
   become: true
+  gather_facts: false
  
   roles: 
     - apache2
     - demo_app
 
+#### Made change ###

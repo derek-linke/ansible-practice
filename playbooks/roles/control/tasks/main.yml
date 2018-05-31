@@ -8,4 +8,4 @@
       with_items:
         - curl
         - python-httplib2
-
+      tags: [ 'packages' ]
