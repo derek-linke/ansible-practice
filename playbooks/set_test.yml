@@ -22,7 +22,7 @@
    
   - name: Set nodes
     set_fact:
-       NodeList: "{{ NodeList }} + {{ [ { 'noder': item.node | upper , 'iper': item.ip} ] }} " 
+       NodeList: "{{ NodeList }} + {{ [ { 'noder': item.node.split(' ')[0] | upper , 'iper': item.ip} ] }} " 
     with_items: "{{ nodelist_in }}" 
 
   
