@@ -30,6 +30,11 @@
        NodeList: "{{ NodeList }} + {{ [ { 'noder': [{ 'nodelevel2': 'level 2' | upper}] , 'iper': item.ip} ] }} " 
     with_items: "{{ nodelist_in }}" 
   
+
+  - name: Set nodes4
+    set_fact:
+      NodeList: {% for nodet in nodelist_in  %}"{{ NodeList }}+{{ [ { 'noder': nodet.node.split(' ')[0] | lower , 'iper': nodet.ip} ] }}"{% endfor %}
+
   - name: Create a list with set fact
     set_fact:
       ltm: 
@@ -42,7 +47,9 @@
 
   - name: Debug message
     debug:
-      msg: "{{ltm.nodes[0].noder}}"  
+      msg: "{{ltm.nodes[0].noder}}"
+
+
 
 
   
