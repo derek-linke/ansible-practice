@@ -15,16 +15,20 @@
 
   tasks:
   
-  - name: Set nodes
+  - name: Set nodes1
     set_fact:
        NodeList: "{{ NodeList  + [ { 'noder': item.node , 'iper': item.ip} ] }}" 
     with_items: "{{ nodelist_in }}"  
    
-  - name: Set nodes
+  - name: Set nodes2
     set_fact:
        NodeList: "{{ NodeList }} + {{ [ { 'noder': item.node.split(' ')[0] | upper , 'iper': item.ip} ] }} " 
     with_items: "{{ nodelist_in }}" 
 
+  - name: Set nodes3
+    set_fact:
+       NodeList: "{{ NodeList }} + {{ [ { 'noder': [{ 'nodelevel2': 'level 2' | upper}] , 'iper': item.ip} ] }} " 
+    with_items: "{{ nodelist_in }}" 
   
   - name: Create a list with set fact
     set_fact:
