@@ -1,0 +1,13 @@
+---
+gtm:
+  pools:
+    name: Test Data
+  pools2:
+    - name: my_pool1
+      order: 0
+      partition: Common
+      ratio: 1
+    - name: my_pool2
+      order: 1
+      partition: Common
+      ratio: 2

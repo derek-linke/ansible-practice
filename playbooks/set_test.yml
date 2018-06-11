@@ -1,0 +1,45 @@
+---
+- name: Set Fact Test
+  hosts: localhost
+  become: true
+  connection: local
+  gather_facts: false
+  vars:
+    hostname: https://finance.dev.desjardins.com
+    nodelist_in:
+      - node: node 1
+        ip: 10.22.22.22
+      - node: node 2
+        ip: 10.22.33.22
+    NodeList: []
+
+  tasks:
+  
+  - name: Set nodes
+    set_fact:
+       NodeList: "{{ NodeList  + [ { 'noder': item.node , 'iper': item.ip} ] }}" 
+    with_items: "{{ nodelist_in }}"  
+   
+  - name: Set nodes
+    set_fact:
+       NodeList: "{{ NodeList }} + {{ [ { 'noder': item.node | upper , 'iper': item.ip} ] }} " 
+    with_items: "{{ nodelist_in }}" 
+
+  
+  - name: Create a list with set fact
+    set_fact:
+      ltm: 
+        vsname: "{{hostname.split('//')[1].split('.')[0] | upper }}_{{hostname.split('//')[1].split('.')[1] | upper }}_{{hostname | urlsplit('scheme')}}_virtual"  # FINANCING_DEV_https_virtual
+        nodes: "{{ NodeList }}"
+
+  - name: Debug
+    debug:
+      var: ltm
+
+  - name: Debug message
+    debug:
+      msg: "{{ltm.nodes[0].noder}}"  
+
+
+  
+

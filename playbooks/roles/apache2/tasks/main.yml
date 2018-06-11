@@ -1,6 +1,19 @@
 ---
 # tasks file for apache2
 
+    - name: Debug outside variables
+      debug:
+        msg: "{{ gtm.pools.name }}"
+
+    - name: Debug outside variables
+      debug:
+        msg: "{{ gtm.pools2 }}"
+    
+    - name: Debug outside variables
+      debug:
+        msg: "{{ item.name }}"
+      with_items: "{{ gtm.pools2}}"
+
     - name: Install Apache2 Server Components
       apt:
         name: "{{item}}"

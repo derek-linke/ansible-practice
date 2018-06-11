@@ -3,7 +3,14 @@
   hosts: webserver
   become: true
   gather_facts: false
- 
+
+  pre_tasks:
+
+    - name: Include vars of stuff.yaml into the 'stuff' variable (2.2).
+      include_vars:
+        file: data.yml
+      
+
   roles: 
     - apache2
     - demo_app
