@@ -1,0 +1,229 @@
+---
+
+- name: Configure CM Device Properties
+  f5bigip_cm_device:
+    f5_hostname: "{{ bigip_host }}"
+    f5_username: "{{ bigip_username }}"
+    f5_password: "{{ bigip_password }}"
+    f5_port: "{{ bigip_port }}"
+    name: "{{ device_name }}"
+    comment: "{{ device_comment }}"
+    contact: "{{ device_contact }}"
+    description: "{{ device_description }}"
+    ha_capacity: "{{ device_ha_capacity }}"
+    location: "{{ device_location }}"
+    state: present
+  delegate_to: localhost
+  register: result
+
+- name: Assert Configure CM Device Properties
+  assert:
+    that:
+      - result|changed
+
+- name: Configure CM Device Properties (idempotent)
+  f5bigip_cm_device:
+    f5_hostname: "{{ bigip_host }}"
+    f5_username: "{{ bigip_username }}"
+    f5_password: "{{ bigip_password }}"
+    f5_port: "{{ bigip_port }}"
+    name: "{{ device_name }}"
+    comment: "{{ device_comment }}"
+    contact: "{{ device_contact }}"
+    description: "{{ device_description }}"
+    ha_capacity: "{{ device_ha_capacity }}"
+    location: "{{ device_location }}"
+    state: present
+  delegate_to: localhost
+  register: result
+
+- name: Assert Configure CM Device Properties (idempotent)
+  assert:
+    that:
+      - not result|changed
+
+- name: Reset CM Device Properties
+  f5bigip_cm_device:
+    f5_hostname: "{{ bigip_host }}"
+    f5_username: "{{ bigip_username }}"
+    f5_password: "{{ bigip_password }}"
+    f5_port: "{{ bigip_port }}"
+    name: "{{ device_name }}"
+    comment: ''
+    contact: ''
+    description: ''
+    ha_capacity: 0
+    location: ''
+    state: present
+  delegate_to: localhost
+  register: result
+
+- name: Assert Reset CM Device Properties
+  assert:
+    that:
+      - result|changed
+
+- name: Configure CM Device ConfigSync
+  f5bigip_cm_device:
+    f5_hostname: "{{ bigip_host }}"
+    f5_username: "{{ bigip_username }}"
+    f5_password: "{{ bigip_password }}"
+    f5_port: "{{ bigip_port }}"
+    name: "{{ device_name }}"
+    configsync_ip: "{{ device_configsync_ip }}"
+    state: present
+  delegate_to: localhost
+  register: result
+
+- name: Assert Configure CM Device ConfigSync
+  assert:
+    that:
+      - result|changed
+
+- name: Configure CM Device ConfigSync (idempotent)
+  f5bigip_cm_device:
+    f5_hostname: "{{ bigip_host }}"
+    f5_username: "{{ bigip_username }}"
+    f5_password: "{{ bigip_password }}"
+    f5_port: "{{ bigip_port }}"
+    name: "{{ device_name }}"
+    configsync_ip: "{{ device_configsync_ip }}"
+    state: present
+  delegate_to: localhost
+  register: result
+
+- name: Assert Configure CM Device ConfigSync (idempotent)
+  assert:
+    that:
+      - not result|changed
+
+- name: Reset CM Device ConfigSync
+  f5bigip_cm_device:
+    f5_hostname: "{{ bigip_host }}"
+    f5_username: "{{ bigip_username }}"
+    f5_password: "{{ bigip_password }}"
+    f5_port: "{{ bigip_port }}"
+    name: "{{ device_name }}"
+    configsync_ip: none
+    state: present
+  delegate_to: localhost
+  register: result
+
+- name: Assert Reset CM Device ConfigSync
+  assert:
+    that:
+      - result|changed
+
+- name: Configure CM Device Failover
+  f5bigip_cm_device:
+    f5_hostname: "{{ bigip_host }}"
+    f5_username: "{{ bigip_username }}"
+    f5_password: "{{ bigip_password }}"
+    f5_port: "{{ bigip_port }}"
+    name: "{{ device_name }}"
+    multicast_interface: "{{ device_failover_multicast_interface }}"
+    multicast_ip: "{{ device_failover_multicast_ip }}"
+    multicast_port: "{{ device_failover_multicast_port }}"
+    unicast_address: "{{ device_failover_unicast_addresses }}"
+    state: present
+  delegate_to: localhost
+  register: result
+
+- name: Assert Configure CM Device Failover
+  assert:
+    that:
+      - result|changed
+
+- name: Configure CM Device Failover (idempotent)
+  f5bigip_cm_device:
+    f5_hostname: "{{ bigip_host }}"
+    f5_username: "{{ bigip_username }}"
+    f5_password: "{{ bigip_password }}"
+    f5_port: "{{ bigip_port }}"
+    name: "{{ device_name }}"
+    multicast_interface: "{{ device_failover_multicast_interface }}"
+    multicast_ip: "{{ device_failover_multicast_ip }}"
+    multicast_port: "{{ device_failover_multicast_port }}"
+    unicast_address: "{{ device_failover_unicast_addresses }}"
+    state: present
+  delegate_to: localhost
+  register: result
+
+- name: Assert Configure CM Device Failover (idempotent)
+  assert:
+    that:
+      - not result|changed
+
+- name: Reset CM Device Failover
+  f5bigip_cm_device:
+    f5_hostname: "{{ bigip_host }}"
+    f5_username: "{{ bigip_username }}"
+    f5_password: "{{ bigip_password }}"
+    f5_port: "{{ bigip_port }}"
+    name: "{{ device_name }}"
+    multicast_interface: "{{ device_failover_multicast_interface_default }}"
+    multicast_ip: "{{ device_failover_multicast_ip_default }}"
+    multicast_port: "{{ device_failover_multicast_port_default }}"
+    unicast_address: "{{ device_failover_unicast_addresses_default }}"
+    state: present
+  delegate_to: localhost
+  register: result
+
+- name: Assert Reset CM Device Failover
+  assert:
+    that:
+      - result|changed
+
+- name: Configure CM Device Mirroring
+  f5bigip_cm_device:
+    f5_hostname: "{{ bigip_host }}"
+    f5_username: "{{ bigip_username }}"
+    f5_password: "{{ bigip_password }}"
+    f5_port: "{{ bigip_port }}"
+    name: "{{ device_name }}"
+    mirror_ip: "{{ device_mirror_ip }}"
+    mirror_secondary_ip: "{{ device_mirror_secondary_ip }}"
+    state: present
+  delegate_to: localhost
+  register: result
+
+- name: Assert Configure CM Device Mirroring
+  assert:
+    that:
+      - result|changed
+
+- name: Configure CM Device Mirroring (idempotent)
+  f5bigip_cm_device:
+    f5_hostname: "{{ bigip_host }}"
+    f5_username: "{{ bigip_username }}"
+    f5_password: "{{ bigip_password }}"
+    f5_port: "{{ bigip_port }}"
+    name: "{{ device_name }}"
+    mirror_ip: "{{ device_mirror_ip }}"
+    mirror_secondary_ip: "{{ device_mirror_secondary_ip }}"
+    state: present
+  delegate_to: localhost
+  register: result
+
+- name: Assert Configure CM Device Mirroring (idempotent)
+  assert:
+    that:
+      - not result|changed
+
+- name: Reset CM Device Mirroring
+  f5bigip_cm_device:
+    f5_hostname: "{{ bigip_host }}"
+    f5_username: "{{ bigip_username }}"
+    f5_password: "{{ bigip_password }}"
+    f5_port: "{{ bigip_port }}"
+    name: "{{ device_name }}"
+    mirror_ip: "{{ device_mirror_ip_default }}"
+    mirror_secondary_ip: "{{ device_mirror_secondary_ip_default }}"
+    state: present
+  delegate_to: localhost
+  register: result
+
+- name: Assert Reset CM Device Mirroring
+  assert:
+    that:
+      - result|changed

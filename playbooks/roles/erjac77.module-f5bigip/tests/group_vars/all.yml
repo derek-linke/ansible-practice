@@ -1,0 +1,5 @@
+---
+
+bigip_username: admin
+bigip_password: admin
+bigip_partition: Common

@@ -1,0 +1,11 @@
+---
+
+- import_playbook: f5bigip_facts.yml
+- import_playbook: site_auth.yml
+- import_playbook: site_cm.yml
+- import_playbook: site_gtm.yml
+- import_playbook: site_ltm.yml
+- import_playbook: site_net.yml
+- import_playbook: site_shared.yml
+- import_playbook: site_sys.yml
+- import_playbook: site_util.yml

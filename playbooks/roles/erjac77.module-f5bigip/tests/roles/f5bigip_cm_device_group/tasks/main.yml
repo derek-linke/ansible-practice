@@ -1,0 +1,141 @@
+---
+
+- name: Create CM Device Group
+  f5bigip_cm_device_group:
+    f5_hostname: "{{ bigip_host }}"
+    f5_username: "{{ bigip_username }}"
+    f5_password: "{{ bigip_password }}"
+    f5_port: "{{ bigip_port }}"
+    name: "{{ device_group_name }}"
+    network_failover: "{{ device_group_network_failover }}"
+    type: "{{ device_group_type }}"
+    state: present
+  delegate_to: localhost
+  register: result
+
+- name: Assert Create CM Device Group
+  assert:
+    that:
+      - result|changed
+
+- name: Create CM Device Group (idempotent)
+  f5bigip_cm_device_group:
+    f5_hostname: "{{ bigip_host }}"
+    f5_username: "{{ bigip_username }}"
+    f5_password: "{{ bigip_password }}"
+    f5_port: "{{ bigip_port }}"
+    name: "{{ device_group_name }}"
+    network_failover: "{{ device_group_network_failover }}"
+    type: "{{ device_group_type }}"
+    state: present
+  delegate_to: localhost
+  register: result
+
+- name: Assert Create CM Device Group (idempotent)
+  assert:
+    that:
+      - not result|changed
+
+- name: Add CM Device Group members
+  f5bigip_cm_device_group_device:
+    f5_hostname: "{{ bigip_host }}"
+    f5_username: "{{ bigip_username }}"
+    f5_password: "{{ bigip_password }}"
+    f5_port: "{{ bigip_port }}"
+    name: "{{ item }}"
+    device_group: "{{ device_group_name }}"
+    state: present
+  with_items: "{{ devices }}"
+  delegate_to: localhost
+  register: result
+
+- name: Assert Add CM Device Group members
+  assert:
+    that:
+      - result|changed
+
+- name: Add CM Device Group members (idempotent)
+  f5bigip_cm_device_group_device:
+    f5_hostname: "{{ bigip_host }}"
+    f5_username: "{{ bigip_username }}"
+    f5_password: "{{ bigip_password }}"
+    f5_port: "{{ bigip_port }}"
+    name: "{{ item }}"
+    device_group: "{{ device_group_name }}"
+    state: present
+  with_items: "{{ devices }}"
+  delegate_to: localhost
+  register: result
+
+- name: Assert Add CM Device Group members (idempotent)
+  assert:
+    that:
+      - not result|changed
+
+- name: Remove CM Device Group members
+  f5bigip_cm_device_group_device:
+    f5_hostname: "{{ bigip_host }}"
+    f5_username: "{{ bigip_username }}"
+    f5_password: "{{ bigip_password }}"
+    f5_port: "{{ bigip_port }}"
+    name: "{{ item }}"
+    device_group: "{{ device_group_name }}"
+    state: absent
+  with_items: "{{ devices }}"
+  delegate_to: localhost
+  register: result
+
+- name: Assert Remove CM Device Group members
+  assert:
+    that:
+      - result|changed
+
+- name: Remove CM Device Group members (idempotent)
+  f5bigip_cm_device_group_device:
+    f5_hostname: "{{ bigip_host }}"
+    f5_username: "{{ bigip_username }}"
+    f5_password: "{{ bigip_password }}"
+    f5_port: "{{ bigip_port }}"
+    name: "{{ item }}"
+    device_group: "{{ device_group_name }}"
+    state: absent
+  with_items: "{{ devices }}"
+  delegate_to: localhost
+  register: result
+
+- name: Assert Remove CM Device Group members (idempotent)
+  assert:
+    that:
+      - not result|changed
+
+- name: Delete CM Device Group
+  f5bigip_cm_device_group:
+    f5_hostname: "{{ bigip_host }}"
+    f5_username: "{{ bigip_username }}"
+    f5_password: "{{ bigip_password }}"
+    f5_port: "{{ bigip_port }}"
+    name: "{{ device_group_name }}"
+    state: absent
+  delegate_to: localhost
+  register: result
+
+- name: Assert Delete CM Device Group
+  assert:
+    that:
+      - result|changed
+
+- name: Delete CM Device Group (idempotent)
+  f5bigip_cm_device_group:
+    f5_hostname: "{{ bigip_host }}"
+    f5_username: "{{ bigip_username }}"
+    f5_password: "{{ bigip_password }}"
+    f5_port: "{{ bigip_port }}"
+    name: "{{ device_group_name }}"
+    state: absent
+  delegate_to: localhost
+  register: result
+
+- name: Assert Delete CM Device Group (idempotent)
+  assert:
+    that:
+      - not result|changed

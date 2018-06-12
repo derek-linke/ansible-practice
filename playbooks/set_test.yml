@@ -31,9 +31,20 @@
     with_items: "{{ nodelist_in }}" 
   
 
-  - name: Set nodes4
+#  - name: Set nodes4
+#    set_fact:
+#     NodeTest: >
+#        {% for nodet in nodelist_in -%} 
+#        { "{{NodeList }}","{{ { 'noder': nodet.node.split(' ')[0] | lower , 'iper': 'nodes4'} }}" }
+#        {% endfor %}
+
+  - name: Set nodes5
     set_fact:
-      NodeList: {% for nodet in nodelist_in  %}"{{ NodeList }}+{{ [ { 'noder': nodet.node.split(' ')[0] | lower , 'iper': nodet.ip} ] }}"{% endfor %}
+      NodeList: >
+       {%- for nodet in nodelist_in -%}
+         {%- do NodeList.append({ 'noder': nodet.node.split(' ')[0] | upper , 'iper': 'nodes4'}) -%}
+       {%- endfor -%}
+       {{ NodeList }} 
 
   - name: Create a list with set fact
     set_fact:
@@ -41,13 +52,17 @@
         vsname: "{{hostname.split('//')[1].split('.')[0] | upper }}_{{hostname.split('//')[1].split('.')[1] | upper }}_{{hostname | urlsplit('scheme')}}_virtual"  # FINANCING_DEV_https_virtual
         nodes: "{{ NodeList }}"
 
-  - name: Debug
+  - name: Debug LTM LIST
     debug:
       var: ltm
 
   - name: Debug message
     debug:
       msg: "{{ltm.nodes[0].noder}}"
+
+  - name: Debug Node Test
+    debug:
+      var: NodeTest
 
 
 
